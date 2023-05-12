@@ -579,30 +579,72 @@ console.log(primeNumbers);
 // ---------------------------------------------
 // TASK 7: Arrow functions and this
 
+console.log("-------- This problems and solutions given by Arrow functions --------");
+
+/* Old / ES5
+function Dog() {
+    this.age = 0;
+
+    setInterval(function() {
+        this.age += 1;
+        console.log(this.age); // returns: NaN because "this" is in a different scope.
+    }, 1000);
+}
+
+var puppy = new Dog();
+*/
 
 
+function Dog() {
+    this.age = 0;
 
+    setInterval(() => {
+        this.age += 1;
+        console.log(this.age); // Inside an arrow functions, "this" is taken from its surroundings.
+    }, 1000);
+}
 
+//var puppy = new Dog(); // Uncommment to check the result.
+
+// Arrow functions don't have their own arguments object.
+
+// Normal functions have the "arguments" object by default, arrow functions doesn't,
+const isOdd = () => arguments[0] % 2 === 1;
+console.log(isOdd(1)); // We get false, but if we print the "arguments..."
+
+const isOdd2 = () => {
+    console.log(arguments); // arguments came from the surrounding context of the funcion, so it has nothing to do with it.
+    return arguments[0] % 2 === 1;
+}
+console.log(isOdd2(1));
+
+const isOdd3 = (...args) => { // The reserved word "args" together with the rest operator does the trick.
+    console.log(args);
+    return args[0] % 2 === 1;
+}
+console.log(isOdd3(1));
 
 
 // Task 7: Exercise
 
-// function Translator() {
-//    this.phrase = "good day";
-//    this.englishBulgarianDictionary = {
-//        good: "добър",
-//        day: "ден"
-//    }
-// }
+console.log("-------- Exercise 7 --------");
 
-// Translator.prototype.getBulgarianPhrase = function() {
-//    return this.phrase
-//        .split(" ")
-//        .map(function(word) {
-//            return this.englishBulgarianDictionary[word]
-//        })
-//        .join(" ");
-// }
- 
-// const translator = new Translator();
-// console.log(translator.getBulgarianPhrase());
+
+function Translator() {
+    this.phrase = "good day";
+    this.englishBulgarianDictionary = {
+        good: "добър",
+        day: "ден"
+    }
+}
+
+Translator.prototype.getBulgarianPhrase = function() {
+    console.log(this.phrase); // Added: returns 'good day'
+    return this.phrase
+        .split(" ")
+        .map(word => this.englishBulgarianDictionary[word])
+        .join(" ");
+}
+
+const translator = new Translator();
+console.log(translator.getBulgarianPhrase());
