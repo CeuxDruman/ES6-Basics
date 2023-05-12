@@ -460,33 +460,67 @@ console.log(firstSpace, thirdSpice);
 // ---------------------------------------------
 // TASK 5: Strings and Interpolation
 
+console.log("-------- Strings news --------");
 
+const language = "English";
+console.log(language.includes("gl")); // true
+console.log(language.includes("random")); // false
+console.log(language.includes('g')); // true
 
+console.log(language.startsWith("E")); // true
+console.log(language.startsWith("e")); // false
+console.log(language.startsWith("Eng")); // true
+
+console.log(language.endsWith("sh")); // true
+console.log(language.endsWith("sH")); // false
+
+console.log(language.repeat(3)); // EnglishEnglishEnglish
+
+console.log("I speak " + language); // + operator
+
+console.log(`I speak ${language}`) // Literals
+
+console.log(`I speak ${language === "English" ? "British English" : none}`) // Evaluation
+
+console.log(`I speak 
+${language === "English" ? "British English" : none}`) // Multi-line
 
 
 
 
 // TASK 5: Exercise: Refactor the code to use the ES6 String utility methods
 
-// const country = "Bulgaria";
-// const city = "Sofia";
+console.log("-------- Exercise 5 --------");
 
-// if (country.indexOf("Bulg") > - 1) {
-//     console.log("The country starts with Bulg");
-// }
 
-// if (city.indexOf("So") === 0) {
-//     console.log("The name starts with So");
-// }
+const country = "Bulgaria";
+const city = "Sofia";
 
-// if (city.lastIndexOf("a") === city.length - 1) {
-//     console.log("The name ends with a");
-// }
+//if (country.indexOf("gar") > - 1) {
+if (country.includes("gar")) {
+    console.log("The country includes gar");
+}
 
-// console.log(
-//     "The capital of " + country +
-//     " is the city of " + city
-// );
+//if (city.indexOf("So") === 0) {
+if (city.startsWith("So")) {
+    console.log("The name starts with So");
+}
+
+//if (city.lastIndexOf("a") === city.length - 1) {
+if (city.endsWith("a")) {
+    console.log("The name ends with a");
+}
+
+/*
+console.log(
+    "The capital of " + country +
+    " is the city of " + city
+);
+*/
+console.log(
+    `The capital of ${country}
+is the city of ${city}`
+);
 
 
 
