@@ -523,18 +523,35 @@ is the city of ${city}`
 );
 
 
-
-
-
-
-
-
-
 // ---------------------------------------------
 // TASK 6: Arrow functions
 
+console.log("-------- Arrow functions --------");
 
+const numbers = [1, 2, 3, 4, 5, 6];
 
+var doubledNumbers = numbers.map(
+    function(number) {
+        return number * 2;
+    }
+);
+console.log(doubledNumbers);
+
+var doubledNumbers = numbers.map(
+    number => { // For more than 1 parameter or default values, put them into ()
+        return number * 2;
+    }
+);
+console.log(doubledNumbers);
+
+var doubledNumbers = numbers.map(
+    number => number * 2 // For a single line function, you can simplify it
+);
+console.log(doubledNumbers);
+
+var calculateDouble = number => number * 2; // Assigning arrow function to a variable.
+var doubledNumbers = numbers.map(calculateDouble);
+console.log(doubledNumbers);
 
 
 
@@ -542,8 +559,16 @@ is the city of ${city}`
 
 // TASK 6: Exercise: Filter out only the prime numbers from the array
 
-// const primeNumbers = [1, 2, 3, 4, 5, 6].filter(/* add the function to filter out the prime numbers */);
-// console.log(primeNumbers);
+console.log("-------- Exercise 6 --------");
+
+/*
+const primeNumbers = [1, 2, 3, 4, 5, 6].filter(TODO);
+console.log(primeNumbers);
+*/
+
+const isPrimeFunction = number => number % 2 === 0;
+const primeNumbers = [1, 2, 3, 4, 5, 6].filter(isPrimeFunction);
+console.log(primeNumbers);
 
 
 
