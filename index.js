@@ -11,16 +11,16 @@
 
 console.log("-------- ES5 --------");
 
-console.log(name); // You can user a "var" variable before its declaration, it will return "undefined".
+console.log(firstName); // You can user a "var" variable before its declaration, it will return "undefined".
 
-var name = "Carlos";
-console.log(name);
+var firstName = "Carlos";
+console.log(firstName);
 
-var name = "Alberto";
-console.log(name);
+var firstName = "Alberto";
+console.log(firstName);
 
-name = "Carlos";
-console.log(name);
+firstName = "Carlos";
+console.log(firstName);
 
 console.log("-------- ES6 --------");
 
@@ -36,17 +36,17 @@ console.log(surname);
 
 console.log("-------- var scope (function scope) --------");
 
-var name = "Carlos";
+var firstName = "Carlos";
 
 function printName() {
-    console.log("inside 1: " + name);
-    name = "Carlos A";
-    console.log("inside 2: " + name);
-    var name = "Alberto";
-    console.log("inside 3: " + name);
+    console.log("inside 1: " + firstName);
+    firstName = "Carlos A";
+    console.log("inside 2: " + firstName);
+    var firstName = "Alberto";
+    console.log("inside 3: " + firstName);
 }
 printName();
-console.log("outside: " + name);
+console.log("outside: " + firstName);
 
 console.log("-------- var scope (box scope) --------");
 
@@ -66,14 +66,14 @@ for (let i = 0; i < 2; i++) {
 }
 */
 
-var name = "Carlos";
+var firstName = "Carlos";
 
 function printName() {
-    let name = "Alberto";
-    console.log("inside: " + name);
+    let firstName = "Alberto";
+    console.log("inside: " + firstName);
 }
 printName();
-console.log("outside: " + name);
+console.log("outside: " + firstName);
 // As functions also have blocks {} let works as expected: variables declared inside the function doesn't affect outside.
 
 
@@ -318,38 +318,143 @@ squaredValuesFns.forEach(fn => console.log(fn()));
 // ---------------------------------------------
 // TASK 4: Destructuring
 
+console.log("-------- Destructuring: for declaring variables from Object's parameters --------");
 
+// Extracting multiple properties on the same line
 
+const recipe = {
+    name: "Red Lentil Dahl",
+    timeInMinutes: 30,
+    ingredients: ["red lentils",
+    "cumin",
+    "turmeric"]
+}
 
+// ES5: Extracting properties one by one
+const recipeNameES5 = recipe.name;
+const recipeIngredientsES5 = recipe.ingredients;
+console.log(recipe, recipeNameES5, recipeIngredientsES5);
+
+// ES6: Extracting multiple properties in 1 line
+const { recipeNameES6, recipeIngredientsES6 } = recipe; // This doesn't work because you need to declare the variable with the same name of the object property.
+console.log(recipe, recipeNameES6, recipeIngredientsES6); // This returns 'undefined'.
+
+const { name, ingredients } = recipe;
+console.log(recipe, name, ingredients);
+
+const { name: recipeNameES6Renamed, ingredients: recipeIngredientsES6Renamed } = recipe; // To "rename" the variable use this.
+console.log(recipe, recipeNameES6Renamed, recipeIngredientsES6Renamed);
+
+console.log("-------- Destructuring: for declaring variables from Arrays's elements --------");
+
+// In Arrays, you CAN rename them directly.
+
+const spices = ["cardomom", "turmeric", "cumin"];
+
+const [first, second] = spices;
+console.log(first, second);
+
+const [a, b] = spices;
+console.log(a, b);
+
+const [sdufh, peoruf] = spices;
+console.log(sdufh, peoruf);
+
+// It is not because of the naming "first" and "second".
+// It simply returns the first number of elements requested.
+
+console.log("-------- Destructuring: for passing functions parameters from Objects/Arrays --------");
+
+// ES5 --> You have to pass the whole object to the function or destructure it manually before calling the function.
+function cook(recipe) {
+    console.log(recipe.name);
+    console.log(recipe.ingredients);
+}
+
+cook(recipe);
+
+// ES6 --> You can destructure it inside the function definition
+
+function cook({ name, ingredients}) { // It takes the name and ingredients for any object you pass to the function
+    console.log(name);
+    console.log(ingredients);
+}
+
+cook(recipe);
 
 
 // Task 4: Exercise: Extract data with destructuring
-
-// const ingredients = {
-//     tea: 'black',
-//     milk: 'soy',
-//     sweetener: 'honey',
-//     spices: ['ginger', 'cardamom', 'cinnamon', 'nutmeg']
-// }
-
-// // Destructure the parameters
-// function prepareChai(ingredients) {
-//     const tea = ingredients.tea;
-//     const spices = ingredients.spices;
-//     const milk = ingredients.milk;
-//     const sweetener = ingredients.sweetener;
-
-//     console.log("Mix the " + tea + " tea " +
-//         "with the " + spices + " in a small pot. " + 
-//         "Add a cup of water and bring to boil. Boil for 2-3 min. " +
-//         "Add " + milk + " milk and " + sweetener + ". " + 
-//         "Simmer for 3 min. Serve masala chai hot or warm!");
-// }
-
-// prepareChai(ingredients);
+console.log("-------- Exercise 4 --------");
 
 
+const myIngredients = {
+    tea: 'black',
+    milk: 'soy',
+    sweetener: 'honey',
+    spices: ['ginger', 'cardamom', 'cinnamon', 'nutmeg']
+}
 
+// Destructure the parameters
+//function prepareChai(myIngredients) { // Removed
+function prepareChai({ tea, spices, milk, sweetener }) { // Solution
+    /* // Removed as the old / manual / ES5 way to do it 
+    const tea = myIngredients.tea;
+    const spices = myIngredients.spices;
+    const milk = myIngredients.milk;
+    const sweetener = myIngredients.sweetener;
+    */
+    
+    console.log("Mix the " + tea + " tea " +
+        "with the " + spices + " in a small pot. " + 
+        "Add a cup of water and bring to boil. Boil for 2-3 min. " +
+        "Add " + milk + " milk and " + sweetener + ". " + 
+        "Simmer for 3 min. Serve masala chai hot or warm!");
+}
+
+prepareChai(myIngredients);
+
+console.log("-------- Assigning default values to destructured parameters --------");
+
+const myNewIngredients = {
+    milk: 'soy',
+    sweetener: 'honey',
+    spices: ['ginger', 'cardamom', 'cinnamon', 'nutmeg']
+}
+
+function prepareChai({ tea = "regular", spices, milk, sweetener }) {
+
+    console.log("Mix the " + tea + " tea " +
+        "with the " + spices + " in a small pot. " + 
+        "Add a cup of water and bring to boil. Boil for 2-3 min. " +
+        "Add " + milk + " milk and " + sweetener + ". " + 
+        "Simmer for 3 min. Serve masala chai hot or warm!");
+}
+
+prepareChai(myNewIngredients);
+
+console.log("-------- The 'rest' operator --------");
+
+const mySpices = ["cardomom", "turmeric", "cumin"];
+
+var [ firstOne, ...restOfMySpices ] = mySpices;
+console.log(firstOne, restOfMySpices);
+
+var [ firstOne, secondOne, ...restOfMySpices ] = mySpices;
+console.log(firstOne, secondOne, restOfMySpices);
+
+console.log("-------- Skipping parameters --------");
+
+var [ ,, thirdSpice ] = mySpices;
+console.log(thirdSpice);
+
+var [ , secondSpice ] = mySpices;
+console.log(secondSpice);
+
+var [ firstSpace , secondSpice ] = mySpices;
+console.log(firstSpace, secondSpice);
+
+var [ firstSpace ,, thirdSpice ] = mySpices;
+console.log(firstSpace, thirdSpice);
 
 
 // ---------------------------------------------
